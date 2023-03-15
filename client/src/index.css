@@ -25,5 +25,11 @@ code {
 
 #accButton {
   margin-top: 10px;
-  
+}
+
+#gamesContainer {
+  margin-top: 20px;
+  display: grid;
+grid-template-columns: repeat(5,1fr);
+  width: 100%;
 }

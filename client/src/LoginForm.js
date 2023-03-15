@@ -28,10 +28,11 @@ function LoginForm({ toggleForm }) {
       if (res.ok) {
         res.json().then(user => console.log(user));
       } else {
-        res.json().then(json => setErrors(Object.entries(json.errors)));
+        res.json().then(json => setErrors(Object.entries(json.error)));
       }
     });
   }
+
   const avatarStyle = { backgroundColor: "red" };
   return (
     <>
@@ -78,11 +79,10 @@ function LoginForm({ toggleForm }) {
             >
               Create Account
             </Button>
-            {errors ? <div>{errors}</div> : null}
+            {errors}
           </Paper>
         </Grid>
       </form>
-      {/* {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null} */}
     </>
   );
 }
