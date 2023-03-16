@@ -12,7 +12,7 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-        <Link to='/' style={{ color:"red",textDecoration: 'none' }}>
+        <Link to='/login' style={{ color:"red",textDecoration: 'none' }}>
           <Typography  variant="h3" component="div" sx={{ flexGrow: 1 }}>
          Games4Review
           </Typography>

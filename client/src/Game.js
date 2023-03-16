@@ -5,14 +5,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-function Game({ game, onClickGame }) {
+function Game({ game, onClickGame,deleteGame }) {
   const { title, genre, platform, image_url } = game;
-  
+console.log(game)
   
   return (
     <Card sx={{ maxWidth: 500 }}>
-      <CardActionArea onClick={(e)=>onClickGame(game.id)}>
-        <CardMedia component="img" height="200" image={image_url} alt={title} />
+      <CardActionArea>
+        <CardMedia  onClick={(e)=>onClickGame(game.id)} component="img" height="300" image={image_url} alt={title} />
         <CardContent>
           <Typography gutterBottom variant="h4" component="div">
             {title}
@@ -23,6 +23,7 @@ function Game({ game, onClickGame }) {
           <Typography variant="body1" color="text.secondary">
             {platform}
           </Typography>
+          <button onClick={() => deleteGame(game.id)}>Delete</button>
         </CardContent>
       </CardActionArea>
     </Card>
