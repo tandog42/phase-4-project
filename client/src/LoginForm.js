@@ -1,12 +1,13 @@
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({ toggleForm }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
+const nav = useNavigate()
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -26,7 +27,9 @@ function LoginForm({ toggleForm }) {
       body: JSON.stringify(user),
     }).then(res => {
       if (res.ok) {
-        res.json().then(user => console.log(user));
+        res.json().then(user => {
+          nav("/games")
+        });
       } else {
         res.json().then(json => setErrors(Object.entries(json.error)));
       }
