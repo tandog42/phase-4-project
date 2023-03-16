@@ -6,7 +6,7 @@ render json: Game.all, status: :ok
   
   def show
     game = Game.find(params[:id])
-    render json: game, serializer: ReviewSerializer
+    render json: game
 
   end
 end

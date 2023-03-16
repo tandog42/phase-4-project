@@ -8,6 +8,7 @@ import Game from "./Game";
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
   const [games, setGames] = useState([]);
+  const [currentUser,setCurrentUser] = useState("")
   const toggleForm = formName => setCurrentForm(formName);
 
   useEffect(() => {
@@ -15,16 +16,32 @@ function App() {
       .then(r => r.json())
       .then(games => setGames(games));
   }, []);
-console.log(games)
+  
+  useEffect(() => {
+    fetch("/auth")
+    .then(res => {
+      if(res.ok) {
+        res.json().then(user => setCurrentUser(user))
+      }
+    })
+  },[])
 
-
-
+  function deleteGame(id) {
+    console.log(id);
+  }
+if(!currentUser) return <LoginForm setCurrentUser={setCurrentUser}/>
   return (
     <div className="App">
       <ButtonAppBar />
       <Routes>
         <Route
-          path="/"
+          path="/games"
+          element={<GamesContainer deleteGame={deleteGame} games={games} />}
+        />
+        <Route path="/games/:id" element={<Game />} />
+        <Route
+          exact
+          path="/login"
           element={
             currentForm === "login" ? (
               <LoginForm toggleForm={toggleForm} />
@@ -33,8 +50,6 @@ console.log(games)
             )
           }
         />
-        <Route path="/games" element={<GamesContainer games={games} />} />
-        <Route path="/games/:id" element={<Game />} />
       </Routes>
     </div>
   );
