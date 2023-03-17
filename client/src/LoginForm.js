@@ -1,13 +1,12 @@
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext} from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "./Context/UserContext";
 
 function LoginForm({ toggleForm }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-const nav = useNavigate()
+  const {  errors,handleLoginSubmit,  setUsername,  setPassword } = useContext(UserContext);
+
+   
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -15,31 +14,10 @@ const nav = useNavigate()
     margin: "20px auto",
   };
 
-  function handleLoginSubmit(e) {
-    e.preventDefault();
-    const user = {
-      username,
-      password,
-    };
-    fetch(`/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    }).then(res => {
-      if (res.ok) {
-        res.json().then(user => {
-          nav("/games")
-        });
-      } else {
-        res.json().then(json => setErrors(Object.entries(json.error)));
-      }
-    });
-  }
-
-  const avatarStyle = { backgroundColor: "red" };
+  const avatarStyle = { color: "black", backgroundColor: "red" };
   return (
     <>
-      <form onSubmit={handleLoginSubmit}>
+      <form onSubmit={(handleLoginSubmit)}>
         <Grid>
           <Paper elevation={10} style={paperStyle}>
             <Grid align="center">
@@ -66,16 +44,15 @@ const nav = useNavigate()
             <Button
               id="loginButton"
               type="submit"
-              color="primary"
               variant="contained"
               fullWidth
             >
               Sign in
             </Button>
+
             <Button
               id="accButton"
               type="submit"
-              color="primary"
               variant="contained"
               fullWidth
               onClick={() => toggleForm("register")}

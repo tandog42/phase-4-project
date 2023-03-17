@@ -1,14 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from './Context/UserContext';
 import ButtonAppBar from "./ButtonAppBar";
 import LoginForm from "./LoginForm";
 import Signup from "./Signup";
 import GamesContainer from "./GamesContainer";
-import Game from "./Game";
+import GameDetail from "./GameDetail";
+import ReviewsCard from "./ReviewsCard";
+
+
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
   const [games, setGames] = useState([]);
-  const [currentUser,setCurrentUser] = useState("")
+  const {user, setUser} = useContext(UserContext)
   const toggleForm = formName => setCurrentForm(formName);
 
   useEffect(() => {
@@ -16,41 +20,36 @@ function App() {
       .then(r => r.json())
       .then(games => setGames(games));
   }, []);
-  
-  useEffect(() => {
-    fetch("/auth")
-    .then(res => {
-      if(res.ok) {
-        res.json().then(user => setCurrentUser(user))
-      }
-    })
-  },[])
 
-  function deleteGame(id) {
-    console.log(id);
-  }
-if(!currentUser) return <LoginForm setCurrentUser={setCurrentUser}/>
+
+  
+   if (!user) return <LoginForm />;
+
   return (
     <div className="App">
-      <ButtonAppBar />
+      
+      <ButtonAppBar  />
       <Routes>
         <Route
           path="/games"
-          element={<GamesContainer deleteGame={deleteGame} games={games} />}
+          element={<GamesContainer  games={games} />}
         />
-        <Route path="/games/:id" element={<Game />} />
+
+        <Route path="/games/:id" element={<GameDetail games={games} />} />
+        <Route path="/games/:id/reviews" element={<ReviewsCard />}></Route>
         <Route
           exact
-          path="/login"
+          path="/"
           element={
             currentForm === "login" ? (
-              <LoginForm toggleForm={toggleForm} />
+              <LoginForm  toggleForm={toggleForm} />
             ) : (
-              <Signup toggleForm={toggleForm} />
+              <Signup  toggleForm={toggleForm} />
             )
           }
         />
       </Routes>
+      
     </div>
   );
 }
