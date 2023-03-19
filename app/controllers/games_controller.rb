@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-
+ 
   def index
 render json: Game.all, status: :ok
   end
@@ -8,5 +8,16 @@ render json: Game.all, status: :ok
     game = Game.find(params[:id])
     render json: game
 
+  end
+
+  def create 
+    game = Game.create!(permitted_params)
+    render json: game, status: :created
+  end
+
+  private
+
+  def permitted_params
+    params.permit(:title, :genre, :platform, :image_url)
   end
 end
