@@ -5,19 +5,25 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { Link } from "react-router-dom";
-
+import ReviewsContainer from './ReviewsContainer'
+import ReviewForm from './ReviewForm'
 function GameDetail({ games }) {
+  //  const [reviews, setReviews] = useState("");
   const { id } = useParams();
   const getGame = games.find(game => game.id === parseInt(id));
-  console.log(games, id);
+  //  const { user } = useContext(UserContext);
 
+console.log(getGame)
   return (
-    <Card key={getGame.id} sx={{ maxWidth: 500 }}>
+  <div className="float-container">
+    
+   
+  <div className="float">
+    <Card id="gameReviewCard" sx={{ maxWidth: 1000 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="300"
+          height="831"
           src={getGame.image_url}
           alt={getGame.title}
         />
@@ -31,11 +37,19 @@ function GameDetail({ games }) {
           <Typography variant="body1" color="text.secondary">
             {getGame.platform}
           </Typography>
-          <Link to={`/games/${getGame.id}`}>See more </Link>
+          
         </CardContent>
       </CardActionArea>
     </Card>
+    </div>
+<div>
+    <ReviewForm currentGame ={getGame} />
+    </div>
+    
+    </div>
   );
 }
+  
+
 
 export default GameDetail;

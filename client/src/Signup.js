@@ -1,23 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { UserContext } from "./Context/UserContext";
-function Signup({ toggleForm}) {
-  const { setUsername, setPassword, handleSubmit, errors } =
-    useContext(UserContext);
+function Signup({ toggleForm }) {
+  const { handleSubmit, errors } = useContext(UserContext);
+  const [signupData, setSignupData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleSignupChange = ({ target: { name, value } }) => {
+    setSignupData(newUser => ({
+      ...newUser,
+      [name]: value,
+    }));
+  };
 
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    height: "50vh",
     width: 280,
-    margin: "20px auto",
+    margin: "100px auto",
   };
 
   const avatarStyle = { backgroundColor: "red" };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={e => handleSubmit(e, signupData)}>
         <Grid>
           <Paper elevation={10} style={paperStyle}>
             <Grid align="center">
@@ -27,14 +37,16 @@ function Signup({ toggleForm}) {
               <h2>Sign up</h2>
             </Grid>
             <TextField
-              onChange={e => setUsername(e.target.value)}
+              onChange={handleSignupChange}
               id="standard-basic"
+              name="username"
               label="Create a Username..."
               variant="standard"
               fullWidth
             />
             <TextField
-              onChange={e => setPassword(e.target.value)}
+              onChange={handleSignupChange}
+              name="password"
               id="standard-basic"
               label="Create a Password..."
               variant="standard"
@@ -60,7 +72,7 @@ function Signup({ toggleForm}) {
             >
               Already have Account?
             </Button>
-            {errors ? errors.map(e => <div>{e[0] + ": " + e[1]}</div>) : null}
+            {errors}
           </Paper>
         </Grid>
       </form>

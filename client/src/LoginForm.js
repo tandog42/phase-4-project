@@ -1,23 +1,35 @@
 import { Grid, Paper, Avatar, TextField, Button } from "@mui/material";
-import React, { useContext} from "react";
+import React, { useContext, useState} from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { UserContext } from "./Context/UserContext";
 
 function LoginForm({ toggleForm }) {
-  const {  errors,handleLoginSubmit,  setUsername,  setPassword } = useContext(UserContext);
+  const {  errors,handleLoginSubmit} = useContext(UserContext);
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: ""
+})
 
+
+const handleLoginChange = ({target: {name, value}}) => {
+  setLoginData(currentUser => ({
+      ...currentUser,
+      [name]: value
+  }))
+}
    
   const paperStyle = {
+    
     padding: 20,
-    height: "70vh",
+    height: "50vh",
     width: 280,
-    margin: "20px auto",
+    margin: "100px auto",
   };
 
   const avatarStyle = { color: "black", backgroundColor: "red" };
   return (
     <>
-      <form onSubmit={(handleLoginSubmit)}>
+      <form onSubmit={(e) => handleLoginSubmit(e, loginData)}>
         <Grid>
           <Paper elevation={10} style={paperStyle}>
             <Grid align="center">
@@ -27,17 +39,21 @@ function LoginForm({ toggleForm }) {
               <h2>Sign in</h2>
             </Grid>
             <TextField
-              onChange={e => setUsername(e.target.value)}
+              onChange={handleLoginChange}
+              name="username"
               id="standard-basic"
               label="Username"
+              value={loginData.username}
               variant="standard"
               fullWidth
             />
             <TextField
-              onChange={e => setPassword(e.target.value)}
+              onChange={handleLoginChange}
+              name="password"
               id="standard-basic"
               label="Password"
               variant="standard"
+              value={loginData.password}
               fullWidth
             />
 
