@@ -1,14 +1,22 @@
 import React from "react";
+import ReviewCard from './ReviewCard'
 import ReviewForm from './ReviewForm'
-
 function ReviewsContainer({ currentGame }) {
+
+
+
+
+
+
+  
   
   return (
-    <div>
+   <>
       {currentGame.reviews.map(review => (
-        <ReviewForm key={review.id} review={review} />
-      ))}
-    </div>
+        <ReviewCard key={review.id} review={review} />
+        ))}
+        <ReviewForm />
+    </>
   );
 }
 
