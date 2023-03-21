@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: [:show, :create]
+  resources :users, only: [:index, :show, :create]
   resources :games
   resources :reviews, only: [:show, :index]
 post "/login", to: "sessions#create"
