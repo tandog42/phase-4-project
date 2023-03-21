@@ -72,6 +72,7 @@ form * {
 #gameReviewCard {
   text-align: center;
  width: 100%;
+
 }
 
 .comment-box,
@@ -80,38 +81,12 @@ form * {
   border-radius: 6px;
   box-shadow: 0 2px 2px #0002;
 }
-.comment-session{
-  width: 650px;
-  height: auto;
-  margin: 0 auto;
-  padding-top: 30rem;
-  padding-left: 65rem;
-}
 
-.post-comment .list {
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-.post-comment .list .user {
-  display: flex;
-  padding: 8px;
-  overflow: hidden;
-}
-
-.comment-session .name {
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.post-comment .comment-post{
-padding: 0 0 15px 58px;
-}
 
 
 .comment-box {
+margin-top: 10rem;
 
-  padding: 10px;
   overflow:hidden;
 }
 
@@ -151,6 +126,13 @@ padding: 0 0 15px 58px;
  
 }  
 
+#reviewCard {
+ margin-top: 4rem;
+}
+#reviewName {
+  padding-left: 1rem;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
 
 
 

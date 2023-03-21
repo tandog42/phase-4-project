@@ -16,6 +16,8 @@ function UserProvider({ children }) {
     });
   }, []);
 
+  
+
   function handleLoginSubmit(e, loginData) {
     e.preventDefault();
 
