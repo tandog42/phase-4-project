@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :users, only: [:index, :show, :create]
+  resources :users
   resources :games
-  resources :reviews, only: [:show, :index]
+  resources :reviews
 post "/login", to: "sessions#create"
 delete "/logout", to: "sessions#destroy"
 get "/me", to: "users#show"
