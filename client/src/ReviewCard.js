@@ -1,38 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { UserContext } from "./Context/UserContext";
-
-function ReviewsCard({ review }) {
+function ReviewsCard({ review, onDeleteReview, handleEditClick }) {
   const { user } = useContext(UserContext);
 
+  function onClickDelete() {
+    fetch(`/reviews/${review.id}`, {
+      method: "DELETE",
+    })
+      .then(r => r.json)
+      .then(onDeleteReview(review));
+  }
 
- 
+  
 
   return review.username === user.username ? (
     <Card id="reviewCard">
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography
+          gutterBottom
+          variant="body1"
+          component="div"
+          color="text.secondary"
+        >
           {review.username}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {review.body}
-        </Typography>
-        <button>Delete</button>
-        <button>Edit</button>
+        <Typography variant="h6">{review.body}</Typography>
+        <br></br>
+        <button onClick={e => handleEditClick(e, review)}>Edit</button>
+        <br></br>
+        <button onClick={ onClickDelete}>Delete</button>
+        <br></br>
       </CardContent>
     </Card>
   ) : (
     <Card id="reviewCard">
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography
+          gutterBottom
+          variant="body1"
+          component="div"
+          color="text.secondary"
+        >
           {review.username}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {review.body}
-        </Typography>
+        <Typography variant="h6">{review.body}</Typography>
       </CardContent>
     </Card>
   );

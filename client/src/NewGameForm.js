@@ -8,7 +8,7 @@ function NewGameForm({ addNewGame }) {
   const [errors, setErrors] = useState([]);
   function onSubmitNewGame(e) {
     e.preventDefault();
-
+console.log(addNewGame)
     const newGame = {
       title: title,
       platform: platform,

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function ButtonAppBar() {
   const { onClickLogout, user } = useContext(UserContext);
-  console.log(user)
+
 
   return user ? (
     <Box sx={{ flexGrow: 1 }}>

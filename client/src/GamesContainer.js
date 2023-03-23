@@ -2,8 +2,6 @@ import React from "react";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
 function GamesContainer({ games, addNewGame }) {
-  console.log(games);
-
   return (
     <>
       <div id="gamesContainer">

@@ -5,42 +5,47 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-
 import ReviewsContainer from "./ReviewsContainer";
-function GameDetail({ games }) {
-  const { id } = useParams();
-  const getGame = games.find(game => game.id === parseInt(id));
 
+
+function GameDetail({ getGame }) {
+  const { id } = useParams();
+  const currentGame = getGame(id);
+  
+console.log(currentGame)
   return (
+    currentGame ? (
     <div className="float-container">
       <div className="float">
-        <Card id="gameReviewCard" sx={{ maxWidth: 1000 }}>
+        <Card id="gameReviewCard" sx={{ maxWidth: 1000,  maxHeight:1000}}>
           <CardActionArea>
             <CardMedia
               component="img"
-              height="767"
-              src={getGame.image_url}
-              alt={getGame.title}
+             height="740"
+              src={currentGame.image_url}
+              alt={currentGame.title}
             />
             <CardContent>
               <Typography gutterBottom variant="h4" component="div">
-                {getGame.title}
+                {currentGame.title}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {getGame.genre}
+                {currentGame.genre}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {getGame.platform}
+                {currentGame.platform}
               </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
       </div>
       <div>
-      <ReviewsContainer  currentGame={getGame}/>
+        <ReviewsContainer currentGame={currentGame} />
       </div>
     </div>
-  );
+    ) : (
+      <div>Loading...</div>
+  ))
 }
 
 export default GameDetail;
