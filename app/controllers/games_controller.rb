@@ -18,6 +18,6 @@ render json: Game.all, status: :ok
   private
 
   def permitted_params
-    params.permit(:title, :genre, :platform, :image_url)
+    params.permit(:title, :genre, :platform, :image_url, :review)
   end
 end
