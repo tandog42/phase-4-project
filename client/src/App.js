@@ -12,8 +12,10 @@ function App() {
 
   const toggleForm = formName => setCurrentForm(formName);
 
-
-  useEffect(() => {
+useEffect(() => {
+  fetchGames()
+},[])
+  const fetchGames = () => {
     fetch(`/games`)
     .then(r => {
       if (r.ok) {
@@ -22,14 +24,14 @@ function App() {
         r.json().then(e => console.error(Object.keys(e)));
       }
     });
-  }, []);
+  }
 
   const addNewGame = game => setGames(currentGames => [...currentGames, game]);
   const getGame = (id) => games.find(game => game.id === parseInt(id));
 // const addReview = review => setReviews()
 // if (!user) return <LoginForm />
 //TENARY
-console.log(games)
+
   return (
     <>
       <ButtonAppBar />

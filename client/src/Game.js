@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Game({ game }) {
 
  
-
+console.log(game)
   return (
     
     <Card key={game.id} sx={{ maxWidth: 500 }}>

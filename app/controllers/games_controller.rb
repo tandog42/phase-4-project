@@ -6,7 +6,7 @@ render json: Game.all, status: :ok
   
   def show
     game = Game.find(params[:id])
-    render json: game
+    render json: game,include: :reviews, status: :ok
 
   end
 

@@ -6,6 +6,11 @@ function NewGameForm({ addNewGame }) {
   const [genre, setGenre] = useState("");
   const [imgUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
+
+
+
+
+  
   function onSubmitNewGame(e) {
     e.preventDefault();
 console.log(addNewGame)
