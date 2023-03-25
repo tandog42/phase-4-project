@@ -8,7 +8,7 @@ import { CardActionArea } from "@mui/material";
 import ReviewsContainer from "./ReviewsContainer";
 
 
-function GameDetail({ getGame }) {
+function GameDetail({ games, setGames, getGame}) {
   const { id } = useParams();
   const currentGame = getGame(id);
   
@@ -40,7 +40,7 @@ console.log(currentGame)
         </Card>
       </div>
       <div>
-        <ReviewsContainer currentGame={currentGame} />
+        <ReviewsContainer  setGames={setGames} games={games}currentGame={currentGame} />
       </div>
     </div>
     ) : (

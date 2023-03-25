@@ -46,10 +46,10 @@ console.log(games)
         />
         <Route
           path="/games"
-          element={<GamesContainer addNewGame={addNewGame} games={games} />}
+          element={<GamesContainer addNewGame={addNewGame} setGames={setGames}games={games} />}
         />
 
-          <Route path="/games/:id" element={<GameDetail  games={games} getGame={getGame} />} />
+          <Route path="/games/:id" element={<GameDetail   setGames={setGames}  games={games} getGame={getGame} />} />
       </Routes>
     </>
   );

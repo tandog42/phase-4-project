@@ -1,21 +1,23 @@
 import React, { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "./Context/UserContext";
 import EditReviewCard from "./EditReviewCard";
-
 import ReviewCard from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
-function ReviewsContainer({ currentGame }) {
+function ReviewsContainer({ games, setGames,currentGame }) {
   const [reviews, setReviews] = useState(currentGame.reviews);
   const [newReview, setNewReview] = useState("");
+  const {id} = useParams()
   const [editReview, setEditReview] = useState(null);
   const { user } = useContext(UserContext);
-
+console.log("1", currentGame.reviews)
+console.log(id)
   function onSubmitReview(e) {
     e.preventDefault();
     const newForm = {
       body: newReview,
-      game_id: currentGame.id,
       user_id: user.id,
+      game_id: id
     };
 
     fetch(`/reviews`, {
@@ -24,9 +26,12 @@ function ReviewsContainer({ currentGame }) {
       body: JSON.stringify(newForm),
     })
       .then(r => r.json())
-      .then(newReview => setReviews([...reviews, newReview]));
-  }
-
+      .then(newReview => setReviews( [...currentGame.reviews, newReview]));
+      
+      setNewReview("")
+    }
+    
+console.log(reviews)
   function handleDeleteReview(deletedReview) {
     const updatedReviews = reviews.filter(
       review => review.id !== deletedReview.id
@@ -34,8 +39,6 @@ function ReviewsContainer({ currentGame }) {
 
     setReviews(updatedReviews);
   }
-
-
 
   const handleEditClick = (e, reviews) => {
     e.preventDefault();
@@ -46,8 +49,18 @@ function ReviewsContainer({ currentGame }) {
     <>
       <div>
         {reviews.map(review =>
+       
           editReview === review.id ? (
-            <EditReviewCard  reviews={reviews}setReviews={setReviews}currentGame ={currentGame} key={review.id}review={review} />
+            <EditReviewCard
+              setReviews={setReviews}
+              currentGame={currentGame}
+              games={games}
+              setGames={setGames}
+              key={review.id}
+              review={review}
+              reviews={reviews}
+              setEditReview={setEditReview}
+            />
           ) : (
             <ReviewCard
               onDeleteReview={handleDeleteReview}
@@ -58,7 +71,7 @@ function ReviewsContainer({ currentGame }) {
           )
         )}
       </div>
-      <div>
+      <div  key={currentGame.id}>
         <ReviewForm
           onSubmitReview={onSubmitReview}
           newReview={newReview}

@@ -10,7 +10,7 @@ function GamesContainer({ games, addNewGame }) {
         ))}
       </div>
       <div>
-        <NewGameForm addNewGame={addNewGame} />
+        <NewGameForm  addNewGame={addNewGame} />
       </div>
     </>
   );

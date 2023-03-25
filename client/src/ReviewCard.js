@@ -14,10 +14,8 @@ function ReviewsCard({ review, onDeleteReview, handleEditClick }) {
       .then(onDeleteReview(review));
   }
 
-  
-
   return review.username === user.username ? (
-    <Card id="reviewCard">
+    <Card key={review.id}id="reviewCard">
       <CardContent>
         <Typography
           gutterBottom
@@ -31,12 +29,12 @@ function ReviewsCard({ review, onDeleteReview, handleEditClick }) {
         <br></br>
         <button onClick={e => handleEditClick(e, review)}>Edit</button>
         <br></br>
-        <button onClick={ onClickDelete}>Delete</button>
+        <button onClick={onClickDelete}>Delete</button>
         <br></br>
       </CardContent>
     </Card>
   ) : (
-    <Card id="reviewCard">
+    <Card key={review.id} id="reviewCard">
       <CardContent>
         <Typography
           gutterBottom

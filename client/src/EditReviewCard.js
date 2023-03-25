@@ -1,43 +1,63 @@
-import React, { useContext, useState } from "react";
-
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
+
 function EditReviewCard({
+  games,
+  setGames,
+  reviews,
   setReviews,
   review,
-  updateReview,
+  setEditReview,
   currentGame,
-  reviews,
 }) {
-  const [updatedReview, setUpdatedReview] = useState("");
-  console.log(currentGame.reviews)
-  function onSubmit(e) {
+  const [updatedReview, setUpdatedReview] = useState(review.body);
 
+  function onSubmit() {
     const data = {
-      
-      body: updatedReview
-    }
-    e.preventDefault();
+      body: updatedReview,
+      game_id: currentGame.id,
+    };
+
     fetch(`/reviews/${review.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(updatedReview => {
-        const updateReviews = currentGame.reviews.map(review => {
-        
-          if (review.id == updatedReview.id) {
-            return updatedReview;
+      .then(r => r.json())
+      .then(newData => {
+         
+        const gameReviews = currentGame.reviews.map(review => {
+          if (review.id === newData.id) {
+            return newData;
           } else {
             return review;
           }
         });
-        setReviews(updateReviews)
+        setReviews(gameReviews)
+        
       });
+        setEditReview(null);
   }
+
+  //   const gameReviews = game.reviews.map(review => {
+  //     if (review.id === newData.id) {
+  //       return newData;
+  //     } else {
+  //       return review;
+  //     }
+  //   });
+  //   setReviews(gameReviews);
+  //   game.reviews = gameReviews;
+  //   return game;
+  // } else {
+  //   return game;
+
+  console.log(games);
+
+  // setEditReview(null);
 
   return (
     <div>

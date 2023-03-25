@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  skip_before_action :authorize, only: :create
+  
   def index
     render json: Review.all, status: :ok
 end
@@ -11,13 +11,13 @@ def show
 end
 
 def create
-review = Review.create!(permitted_params)
-render json: review, status: :created
+review = Review.create(permitted_params)
+render json: review
 end
 
 def update
   review = Review.find(params[:id])
-  Review.update(permitted_params)
+  review.update(permitted_params)
   render json: review, status: :accepted
 end
 
@@ -32,7 +32,7 @@ end
 private
 
 def permitted_params
-params.permit(:body, :game_id, :user_id)
+params.permit(:body, :id, :user_id, :game_id, :review)
 
 end
 end
