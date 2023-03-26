@@ -8,11 +8,11 @@ import { CardActionArea } from "@mui/material";
 import ReviewsContainer from "./ReviewsContainer";
 
 
-function GameDetail({ games, setGames, getGame}) {
+function GameDetail({ games, setGames}) {
   const { id } = useParams();
-  const currentGame = getGame(id);
-  
-console.log(currentGame)
+  const currentGame =  games.find(game => game.id === parseInt(id));
+ 
+
   return (
     currentGame ? (
     <div className="float-container">

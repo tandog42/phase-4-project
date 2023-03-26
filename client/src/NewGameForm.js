@@ -1,76 +1,83 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NewGameForm({ addNewGame }) {
-  const [title, setTitle] = useState("");
-  const [platform, setPlatform] = useState("");
-  const [genre, setGenre] = useState("");
-  const [imgUrl, setImageUrl] = useState("");
+  const [formData, setFormData] = useState({
+    title:'',
+    genre:'',
+    platform:'',
+    image_url:'',
+    
+  })
   const [errors, setErrors] = useState([]);
-
+const nav = useNavigate()
 
 
 
   
   function onSubmitNewGame(e) {
     e.preventDefault();
-console.log(addNewGame)
-    const newGame = {
-      title: title,
-      platform: platform,
-      genre: genre,
-      image_url: imgUrl,
-    };
     fetch("/games", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newGame),
+      body: JSON.stringify(formData),
     }).then(r => {
       if (r.ok) {
         r.json().then(addNewGame);
+       
       } else {
         r.json().then(data => {
           setErrors(Object.entries(data.errors));
         });
       }
     });
+    setFormData("")
   }
 
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setFormData({...formData, [name]: value})
+  }
   return (
     <div>
       <form id="newGameForm" onSubmit={onSubmitNewGame}>
         <h3>Add a Game</h3>
         <input
           type="text"
-          value={title}
+          value={formData.title}
+          name="title"
           required="required"
-          onChange={e => setTitle(e.target.value)}
+          onChange={handleChange}
           placeholder=" Enter a Title"
         />
         <input
           type="text"
-          value={genre}
+          value={formData.genre}
+          name="genre"
           required="required"
-          onChange={e => setGenre(e.target.value)}
+          onChange={handleChange}
           placeholder=" Enter a Genre"
         />
 
         <input
           type="text"
-          value={platform}
+          value={formData.platform}
+          name="platform"
           required="required"
-          onChange={e => setPlatform(e.target.value)}
+          onChange={handleChange}
           placeholder=" Enter a Platform"
         />
 
         <input
           type="text"
-          value={imgUrl}
+          value={formData.image_url}
+          name="image_url"
           required="required"
-          onChange={e => setImageUrl(e.target.value)}
+          onChange={handleChange}
           placeholder=" Enter a Image url"
         />
 
-        <button type="submit" variant="contained">
+        <button  type="submit"  variant="contained">
           Submit
         </button>
         {errors}

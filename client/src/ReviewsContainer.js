@@ -9,9 +9,10 @@ function ReviewsContainer({ games, setGames,currentGame }) {
   const [newReview, setNewReview] = useState("");
   const {id} = useParams()
   const [editReview, setEditReview] = useState(null);
+  const [updatedReview, setUpdatedReview] = useState("")
+  
   const { user } = useContext(UserContext);
-console.log("1", currentGame.reviews)
-console.log(id)
+console.log(updatedReview)
   function onSubmitReview(e) {
     e.preventDefault();
     const newForm = {
@@ -26,12 +27,54 @@ console.log(id)
       body: JSON.stringify(newForm),
     })
       .then(r => r.json())
-      .then(newReview => setReviews( [...currentGame.reviews, newReview]));
+      .then(newReview => setReviews(currentReviews => [...currentReviews, newReview]));
       
+  
       setNewReview("")
     }
+
+    console.log(currentGame)
+
+
+
+
+    function onSubmit(ids) {
+ 
+      const data = {
+        game_id: currentGame.id,
+        body: updatedReview
+      }
+
+      fetch(`/reviews/${ids}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then(r => r.json())
+        .then(newData => {
+setReviews(newData)
+            // const newGame = games.map(game => {
+            //   if (game.id === newData.game.id) {
+            //     const gameReviews = game.reviews.map(review => {
+            //       if (review.id === newData.id) {
+            //      return newData.review
+            //       } else {
+            //         return review;
+            //       }
+            //     });
+            //     setReviews(gameReviews);
     
-console.log(reviews)
+              //   game.reviews = gameReviews
+              //   return game
+              // } else {
+              //   return game;
+              // }
+              // }})
+            // setGames(newGame)
+          })}
+       
+    
+
   function handleDeleteReview(deletedReview) {
     const updatedReviews = reviews.filter(
       review => review.id !== deletedReview.id
@@ -44,21 +87,17 @@ console.log(reviews)
     e.preventDefault();
     setEditReview(reviews.id);
   };
-
+console.log(reviews)
   return (
     <>
       <div>
-        {reviews.map(review =>
-       
+        {reviews.map(review => (
           editReview === review.id ? (
             <EditReviewCard
-              setReviews={setReviews}
-              currentGame={currentGame}
-              games={games}
-              setGames={setGames}
+            setUpdatedReview={setUpdatedReview}
               key={review.id}
+             onSubmit={onSubmit}
               review={review}
-              reviews={reviews}
               setEditReview={setEditReview}
             />
           ) : (
@@ -69,7 +108,7 @@ console.log(reviews)
               handleEditClick={handleEditClick}
             />
           )
-        )}
+        ))}
       </div>
       <div  key={currentGame.id}>
         <ReviewForm

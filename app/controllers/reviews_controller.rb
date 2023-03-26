@@ -17,7 +17,7 @@ end
 
 def update
   review = Review.find(params[:id])
-  review.update(permitted_params)
+   review.update(permitted_params)
   render json: review, status: :accepted
 end
 

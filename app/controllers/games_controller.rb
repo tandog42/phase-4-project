@@ -6,13 +6,16 @@ render json: Game.all, status: :ok
   
   def show
     game = Game.find(params[:id])
-    render json: game,include: :reviews, status: :ok
+    render json: game, status: :ok
 
   end
 
   def create 
+   
     game = Game.create!(permitted_params)
-    render json: game, status: :created
+ 
+    render json: game, status: :accepted
+    
   end
 
   private

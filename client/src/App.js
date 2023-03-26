@@ -13,9 +13,6 @@ function App() {
   const toggleForm = formName => setCurrentForm(formName);
 
 useEffect(() => {
-  fetchGames()
-},[])
-  const fetchGames = () => {
     fetch(`/games`)
     .then(r => {
       if (r.ok) {
@@ -24,20 +21,19 @@ useEffect(() => {
         r.json().then(e => console.error(Object.keys(e)));
       }
     });
-  }
+  },[])
 
   const addNewGame = game => setGames(currentGames => [...currentGames, game]);
-  const getGame = (id) => games.find(game => game.id === parseInt(id));
+
+ 
 // const addReview = review => setReviews()
 // if (!user) return <LoginForm />
-//TENARY
-
   return (
     <>
       <ButtonAppBar />
       <Routes>
         <Route
-          path="/"
+          exact path="/"
           element={
             currentForm === "login" ? (
               <LoginForm toggleForm={toggleForm} />
@@ -51,7 +47,7 @@ useEffect(() => {
           element={<GamesContainer addNewGame={addNewGame} setGames={setGames}games={games} />}
         />
 
-          <Route path="/games/:id" element={<GameDetail   setGames={setGames}  games={games} getGame={getGame} />} />
+          <Route path="/games/:id" element={<GameDetail   setGames={setGames}  games={games}  />} />
       </Routes>
     </>
   );
