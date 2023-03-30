@@ -1,39 +1,30 @@
-import { Route, Routes} from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import ButtonAppBar from "./ButtonAppBar";
 import LoginForm from "./LoginForm";
 import Signup from "./Signup";
 import GamesContainer from "./GamesContainer";
 import GameDetail from "./GameDetail";
+import { UserContext } from "./Context/UserContext";
+import { GameContext } from "./Context/GameContext";
 
 function App() {
   const [currentForm, setCurrentForm] = useState("login");
-  const [games, setGames] = useState([]);
+  const { user } = useContext(UserContext);
+  const { games, setGames } = useContext(GameContext);
 
   const toggleForm = formName => setCurrentForm(formName);
 
-useEffect(() => {
-    fetch(`/games`)
-    .then(r => {
-      if (r.ok) {
-        r.json().then(allGames => setGames(allGames))
-      } else {
-        r.json().then(e => console.error(Object.keys(e)));
-      }
-    });
-  },[])
+  const addNewGame = game => setGames([...games, game]);
 
-  const addNewGame = game => setGames(currentGames => [...currentGames, game]);
-
- 
-// const addReview = review => setReviews()
-// if (!user) return <LoginForm />
+  if (!user) return <LoginForm />;
   return (
     <>
       <ButtonAppBar />
       <Routes>
         <Route
-          exact path="/"
+          exact
+          path="/"
           element={
             currentForm === "login" ? (
               <LoginForm toggleForm={toggleForm} />
@@ -44,10 +35,10 @@ useEffect(() => {
         />
         <Route
           path="/games"
-          element={<GamesContainer addNewGame={addNewGame} setGames={setGames}games={games} />}
+          element={<GamesContainer addNewGame={addNewGame} />}
         />
 
-          <Route path="/games/:id" element={<GameDetail   setGames={setGames}  games={games}  />} />
+        <Route path="/games/:id" element={<GameDetail />} />
       </Routes>
     </>
   );
