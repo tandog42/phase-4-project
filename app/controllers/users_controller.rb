@@ -19,7 +19,7 @@ class UsersController < ApplicationController
  private
 
  def permitted_params
-params.permit(:username, :password, :review)
+params.permit(:username, :password, :review, :user)
 end
 
 
