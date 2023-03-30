@@ -3,18 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 function NewGameForm({ addNewGame }) {
   const [formData, setFormData] = useState({
-    title:'',
-    genre:'',
-    platform:'',
-    image_url:'',
-    
-  })
+    title: "",
+    genre: "",
+    platform: "",
+    image_url: "",
+  });
   const [errors, setErrors] = useState([]);
-const nav = useNavigate()
+  const nav = useNavigate();
 
-
-
-  
   function onSubmitNewGame(e) {
     e.preventDefault();
     fetch("/games", {
@@ -23,21 +19,22 @@ const nav = useNavigate()
       body: JSON.stringify(formData),
     }).then(r => {
       if (r.ok) {
-        r.json().then(addNewGame);
-       
+        r.json().then(game => addNewGame(game));
+        
       } else {
         r.json().then(data => {
           setErrors(Object.entries(data.errors));
         });
       }
     });
-    setFormData("")
+    setFormData("");
   }
-
-  const handleChange = (e) => {
-    const {name, value} = e.target
-    setFormData({...formData, [name]: value})
-  }
+// how to handle bad image urls
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  console.log(formData)
   return (
     <div>
       <form id="newGameForm" onSubmit={onSubmitNewGame}>
@@ -77,7 +74,7 @@ const nav = useNavigate()
           placeholder=" Enter a Image url"
         />
 
-        <button  type="submit"  variant="contained">
+        <button type="submit" variant="contained">
           Submit
         </button>
         {errors}
