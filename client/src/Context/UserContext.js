@@ -27,10 +27,9 @@ function UserProvider({ children }) {
       body: JSON.stringify(loginData),
     }).then(res => {
       if (res.ok) {
-        res
-          .json()
-          .then(user => setUser(user))
-          .then(nav("/games"));
+        res.json().then(user => { 
+          setUser(user)
+          nav("/games")});
       } else {
         res.json().then(err => setErrors(Object.entries(err.error)));
       }
@@ -50,10 +49,11 @@ function UserProvider({ children }) {
           .then(newUser => setUser(newUser))
           .then(nav("/games"));
       } else {
-        res.json().then(json => setErrors(Object.entries(json.error)));
+        res.json().then(json => setErrors(Object.entries(json.errors)));
       }
     });
   }
+  
   function onClickLogout() {
     fetch("/logout", {
       method: "DELETE",
