@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
- 
+  skip_before_action :authorize, only: :index
   def index
 render json: Game.all, status: :ok
   end
@@ -11,10 +11,9 @@ render json: Game.all, status: :ok
   end
 
   def create 
-   
+    # byebug
     game = Game.create!(permitted_params)
- 
-    render json: game, status: :accepted
+    render json: game, status: :created
     
   end
 
