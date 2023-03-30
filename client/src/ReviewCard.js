@@ -3,19 +3,35 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { UserContext } from "./Context/UserContext";
-function ReviewsCard({ review, onDeleteReview, handleEditClick }) {
+import { GameContext } from "./Context/GameContext";
+function ReviewsCard({ review, onDeleteReview, handleEditClick, currentGame }) {
   const { user } = useContext(UserContext);
+  const { setGames, games } = useContext(GameContext);
 
-  function onClickDelete() {
+  const updatedGames = review => {
+    const gamesNotChanging = games.map(game => {
+      if (game.id === review.game_id) {
+        const reviewsArray = game.reviews.filter(
+          gameReview => review.id !== gameReview.id
+        );
+
+        return { ...game, reviews: reviewsArray };
+      } else {
+        return game;
+      }
+    });
+    setGames(gamesNotChanging);
+  };
+  console.log(games);
+
+  function onClickDelete(review) {
     fetch(`/reviews/${review.id}`, {
       method: "DELETE",
-    })
-      .then(r => r.json)
-      .then(onDeleteReview(review));
+    }).then(updatedGames(review));
   }
 
   return review.username === user.username ? (
-    <Card key={review.id}id="reviewCard">
+    <Card key={review.id} id="reviewCard">
       <CardContent>
         <Typography
           gutterBottom
@@ -29,7 +45,7 @@ function ReviewsCard({ review, onDeleteReview, handleEditClick }) {
         <br></br>
         <button onClick={e => handleEditClick(e, review)}>Edit</button>
         <br></br>
-        <button onClick={onClickDelete}>Delete</button>
+        <button onClick={() => onClickDelete(review)}>Delete</button>
         <br></br>
       </CardContent>
     </Card>
