@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,10 +6,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import ReviewsContainer from "./ReviewsContainer";
+import { GameContext } from "./Context/GameContext";
 
-
-function GameDetail({ games, setGames}) {
+function GameDetail({  handleEditGameReviews}) {
   const { id } = useParams();
+  const {games} = useContext(GameContext)
   const currentGame =  games.find(game => game.id === parseInt(id));
  
 
@@ -40,7 +41,7 @@ function GameDetail({ games, setGames}) {
         </Card>
       </div>
       <div>
-        <ReviewsContainer  setGames={setGames} games={games}currentGame={currentGame} />
+        <ReviewsContainer  currentGame={currentGame}  />
       </div>
     </div>
     ) : (

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./Context/GameContext";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
-function GamesContainer({ games, addNewGame }) {
+function GamesContainer({addNewGame }) {
+  const {games} = useContext(GameContext)
   return (
     <>
       <div id="gamesContainer">
