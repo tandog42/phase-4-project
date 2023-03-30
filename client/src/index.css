@@ -36,10 +36,25 @@ code {
   color: red;
 }
 #logout-Btn {
-float: right;
-text-align: right;
-
+  margin-left: auto;
+color: red;
+    background:none;
+    border:none;
+    font-size: x-large;
+    cursor: pointer;
 }
+
+#games-Btn{
+  
+  margin-left: 83rem;
+  color: red;
+      background:none;
+      border:none;
+      cursor: pointer;
+}
+
+
+
 
 #gamesContainer {
   margin-top: 10px;
