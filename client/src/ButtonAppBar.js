@@ -11,7 +11,7 @@ export default function ButtonAppBar() {
 
 
   return user ? (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar>
         <Toolbar>
           <Link to="/" style={{ color: "red", textDecoration: "none" }}>
@@ -19,8 +19,8 @@ export default function ButtonAppBar() {
               Games4Review
             </Typography>
           </Link>
-          <Link to="/games" style={{ color: "red", textDecoration: "none" }}>
-            <Typography float="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link to="/games" id="games-Btn" style={{  textDecoration: "none" }}>
+            <Typography sx={{ fontSize: 'h5.fontSize' }} >
               Games
             </Typography>
           </Link>
