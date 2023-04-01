@@ -60,6 +60,7 @@ function UserProvider({ children }) {
     }).then(r => {
       if (r.ok) {
         setUser(null);
+        nav("/")
       } else {
         r.json().then(e => alert(e.errors));
       }

@@ -21,6 +21,7 @@ function GameProvider({ children }) {
       value={{
         games,
         setGames,
+        errors
       }}
     >
       {children}
