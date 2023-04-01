@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 function NewGameForm({ addNewGame }) {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ function NewGameForm({ addNewGame }) {
     image_url: "",
   });
   const [errors, setErrors] = useState([]);
-  const nav = useNavigate();
+
 
   function onSubmitNewGame(e) {
     e.preventDefault();
