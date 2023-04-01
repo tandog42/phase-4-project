@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { UserContext } from "./Context/UserContext";
 import { GameContext } from "./Context/GameContext";
-function ReviewsCard({ review, onDeleteReview, handleEditClick, currentGame }) {
+function ReviewsCard({ review, handleEditClick }) {
   const { user } = useContext(UserContext);
   const { setGames, games } = useContext(GameContext);
 
