@@ -32,19 +32,14 @@ export default function ButtonAppBar() {
       </AppBar>
     </Box>
   ) : (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box>
+      <AppBar>
         <Toolbar>
           <Link to="/" style={{ color: "red", textDecoration: "none" }}>
             <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
               Games4Review
             </Typography>
           </Link>
-          {/* <Link to='/games' style={{ color:"red",textDecoration: 'none' }}>
-          <Typography  variant="h3" component="div" sx={{ flexGrow: 1 }}>
-        Games
-          </Typography>
-          </Link>  */}
         </Toolbar>
       </AppBar>
     </Box>
