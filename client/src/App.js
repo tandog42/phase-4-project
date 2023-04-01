@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import ButtonAppBar from "./ButtonAppBar";
 import LoginForm from "./LoginForm";
@@ -17,7 +17,10 @@ function App() {
 
   const addNewGame = game => setGames([...games, game]);
 
-  if (!user) return <LoginForm />;
+
+
+  const noUserForm = () => currentForm === "login"? <LoginForm toggleForm={toggleForm} /> : <Signup toggleForm={toggleForm} />
+  if (!user) return noUserForm()
   return (
     <>
       <ButtonAppBar />
