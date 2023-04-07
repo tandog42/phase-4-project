@@ -34,6 +34,7 @@ function UserProvider({ children }) {
         res.json().then(err => setErrors(Object.entries(err.error)));
       }
     });
+    setErrors([])
   }
 
   function handleSubmit(e, signupData) {
@@ -49,7 +50,7 @@ function UserProvider({ children }) {
           .then(newUser => setUser(newUser))
           .then(nav("/games"));
       } else {
-        res.json().then(json => setErrors(Object.entries(json.errors)));
+        res.json().then(err => setErrors(Object.entries(err.errors)));
       }
     });
   }

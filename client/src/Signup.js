@@ -38,7 +38,7 @@ function Signup({ toggleForm }) {
             </Grid>
             <TextField
               onChange={handleSignupChange}
-              id="standard-basic"
+              className="standard-basic"
               name="username"
               label="Create a Username..."
               variant="standard"

@@ -41,7 +41,7 @@ const handleLoginChange = ({target: {name, value}}) => {
             <TextField
               onChange={handleLoginChange}
               name="username"
-              id="standard-basic"
+              className="standard-basic"
               label="Username"
               value={loginData.username}
               variant="standard"
@@ -50,6 +50,7 @@ const handleLoginChange = ({target: {name, value}}) => {
             <TextField
               onChange={handleLoginChange}
               name="password"
+              type="password"
               id="standard-basic"
               label="Password"
               variant="standard"

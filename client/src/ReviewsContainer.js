@@ -9,10 +9,10 @@ function ReviewsContainer({ currentGame }) {
   const [newReview, setNewReview] = useState("");
   const { id } = useParams();
   const [editReview, setEditReview] = useState(null);
-
+const [ errors,setErrors] = useState([])
   const { user } = useContext(UserContext);
   const { setGames, games } = useContext(GameContext);
- 
+
   function onSubmitReview(e) {
     e.preventDefault();
     const newForm = {
@@ -25,15 +25,25 @@ function ReviewsContainer({ currentGame }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newForm),
-    })
-      .then(r => r.json())
-      .then(newGame => {
-        const gamesNotChanging = games.filter(game => game.id !== newGame.game_id);
-        const changingGame = games.filter(game => game.id === newGame.game_id)[0];
-        changingGame.reviews.push(newGame);
-        setGames([changingGame, ...gamesNotChanging]);
-      });
-
+    }).then(r => {
+      if (r.ok) {
+        r.json().then(newGame => {
+          const gamesNotChanging = games.filter(
+            game => game.id !== newGame.game_id
+          );
+          const changingGame = games.filter(
+            game => game.id === newGame.game_id
+          )[0];
+          changingGame.reviews.push(newGame);
+          setGames([changingGame, ...gamesNotChanging]);
+        });
+      } else {
+        r.json().then(data => {
+          setErrors(data.errors);
+        });
+      }
+    });
+setErrors([])
     setNewReview("");
   }
 
@@ -49,7 +59,7 @@ function ReviewsContainer({ currentGame }) {
           <EditReviewCard setEditReview={setEditReview} review={review} />
         ) : (
           <ReviewCard
-          currentGame = {currentGame}
+            currentGame={currentGame}
             key={review.id}
             review={review}
             handleEditClick={handleEditClick}
@@ -58,6 +68,7 @@ function ReviewsContainer({ currentGame }) {
       )}
 
       <ReviewForm
+      errors={errors}
         onSubmitReview={onSubmitReview}
         newReview={newReview}
         setNewReview={setNewReview}
