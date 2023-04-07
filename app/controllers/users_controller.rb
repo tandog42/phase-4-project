@@ -18,6 +18,18 @@ class UsersController < ApplicationController
   end
 
 
+#   def username
+#     param_num = params[:num].to_i
+#     r = User.all.map do |s| 
+#      if s.username.length > params[:num].to_i 
+#       s.username
+#      else 
+#     { error:  ["Needs more Characters"] }
+#     end
+#   end
+#   render json: r
+# end
+
  private
 
  def permitted_params

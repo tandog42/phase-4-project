@@ -8,7 +8,7 @@ import { CardActionArea } from "@mui/material";
 import ReviewsContainer from "./ReviewsContainer";
 import { GameContext } from "./Context/GameContext";
 
-function GameDetail({  handleEditGameReviews}) {
+function GameDetail() {
   const { id } = useParams();
   const {games} = useContext(GameContext)
   const currentGame =  games.find(game => game.id === parseInt(id));

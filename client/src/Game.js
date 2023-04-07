@@ -6,11 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 function Game({ game }) {
-
- 
-
   return (
-    
     <Card key={game.id} sx={{ maxWidth: 500 }}>
       <CardActionArea>
         <CardMedia

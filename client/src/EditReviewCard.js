@@ -3,16 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { GameContext } from "./Context/GameContext";
-function EditReviewCard({
-  setEditReview,
-
-  review,
-  setReviews,
-  
-}) {
+function EditReviewCard({ setEditReview, review }) {
   const { setGames, games } = useContext(GameContext);
   const [updatedReview, setUpdatedReview] = useState("");
-  
 
   function onSubmit(id) {
     const data = {
@@ -40,9 +33,9 @@ function EditReviewCard({
             return game;
           }
         });
-      setGames(updatedGames)
+        setGames(updatedGames);
       });
-   
+
     setEditReview(null);
   }
 
