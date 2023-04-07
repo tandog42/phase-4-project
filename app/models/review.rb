@@ -2,8 +2,8 @@ class Review < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
-  validates :body, presence: true, length: {maximum: 250}
-
+   validates :body, presence: true
+ 
   def game_id
 self.game.id
   end
