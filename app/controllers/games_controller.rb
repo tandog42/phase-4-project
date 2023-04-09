@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  class GamesController < ApplicationController
+
     skip_before_action :authorize, only: [:index, :filtered_games]
   
     
@@ -47,4 +47,4 @@ class GamesController < ApplicationController
     end
   end
   
-end
+
