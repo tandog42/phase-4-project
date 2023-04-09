@@ -11,16 +11,16 @@ class UsersController < ApplicationController
 
 
 
-def fun_reviews
-user = User.find(params[:id])
-user = user.reviews
- lol = user.filter{ |a| a.body.include?("Great")}
- if lol != []
- render json: lol
-else
-  render json: {error: "Nothing Matches"}
-end
-end
+# def fun_reviews
+# user = User.find(params[:id])
+# user = user.reviews
+#  lol = user.filter{ |a| a.body.include?("Great")}
+#  if lol != []
+#  render json: lol
+# else
+#   render json: {error: "Nothing Matches"}
+# end
+# end
 
 
 
