@@ -1,9 +1,30 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: [:create, :fun_reviews]
 
   def index
     render json: User.all
   end
+
+ 
+
+
+
+
+
+def fun_reviews
+user = User.find(params[:id])
+user = user.reviews
+ lol = user.filter{ |a| a.body.include?("Great")}
+ if lol != []
+ render json: lol
+else
+  render json: {error: "Nothing Matches"}
+end
+end
+
+
+
+
 
   
   def create
@@ -17,18 +38,6 @@ class UsersController < ApplicationController
    render json: @current_user
   end
 
-
-#   def username
-#     param_num = params[:num].to_i
-#     r = User.all.map do |s| 
-#      if s.username.length > params[:num].to_i 
-#       s.username
-#      else 
-#     { error:  ["Needs more Characters"] }
-#     end
-#   end
-#   render json: r
-# end
 
  private
 

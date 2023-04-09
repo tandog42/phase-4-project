@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import { UserContext } from "./Context/UserContext";
 import Typography from "@mui/material/Typography";
 function ReviewForm({ errors,setNewReview, newReview, onSubmitReview }) {
   const { user } = useContext(UserContext);
-console.log(errors)
+
   return (
     <div className="comment-box">
       <form onSubmit={onSubmitReview}>

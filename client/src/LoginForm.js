@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { UserContext } from "./Context/UserContext";
 
 function LoginForm({ toggleForm }) {
-  const {  errors,handleLoginSubmit} = useContext(UserContext);
+  const {  errors, handleLoginSubmit} = useContext(UserContext);
   const [loginData, setLoginData] = useState({
     username: "",
     password: ""
