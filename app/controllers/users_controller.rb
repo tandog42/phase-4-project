@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: [:create, :fun_reviews]
+  skip_before_action :authorize, only: [:create, :hello]
 
   def index
     render json: User.all
@@ -8,7 +8,10 @@ class UsersController < ApplicationController
  
 
 
+def hello
 
+  render json:  User.all
+end
 
 
 # def fun_reviews

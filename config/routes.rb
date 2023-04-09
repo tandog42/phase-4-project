@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
 get "/users/:id/fun-reviews", to: "users#fun_reviews"
 
+get "/hello", to: "users#hello"
+
 post "/filtered-games", to: "games#filtered_games"
 
 
